@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huiyinian.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="树形dp习题">
+<meta property="og:url" content="https://huiyinian.github.io/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/index.html">
+<meta property="og:site_name" content="辉忆年">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://acm.hdu.edu.cn/data/images/C128-1005-1.JPG">
+<meta property="og:image" content="http://poj.org/images/1463_1.jpg">
+<meta property="article:published_time" content="2020-10-24T13:55:21.915Z">
+<meta property="article:modified_time" content="2020-10-24T14:28:50.885Z">
+<meta property="article:author" content="辉忆年">
+<meta property="article:tag" content="树形dp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://acm.hdu.edu.cn/data/images/C128-1005-1.JPG">
+
+<link rel="canonical" href="https://huiyinian.github.io/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>树形dp习题 | 辉忆年</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">辉忆年</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/huiyinian" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
+      <meta itemprop="name" content="辉忆年">
+      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="辉忆年">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树形dp习题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-24 21:55:21 / 修改时间：22:28:50" itemprop="dateCreated datePublished" datetime="2020-10-24T21:55:21+08:00">2020-10-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index"><span itemprop="name">acm</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hdu 2196 Computer</td>
+<td><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2196" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=2196</a></td>
+</tr>
+<tr>
+<td>poj 1463 Strategic game</td>
+<td><a href="http://poj.org/problem?id=1463" target="_blank" rel="noopener">http://poj.org/problem?id=1463</a></td>
+</tr>
+<tr>
+<td>P3574 [POI2014]FAR-FarmCraft</td>
+<td><a href="https://www.luogu.com.cn/problem/P3574" target="_blank" rel="noopener">https://www.luogu.com.cn/problem/P3574</a></td>
+</tr>
+<tr>
+<td>……</td>
+<td>……</td>
+</tr>
+</tbody></table>
+<h1 id="hdu-2196-Computer"><a href="#hdu-2196-Computer" class="headerlink" title="hdu 2196 Computer"></a>hdu 2196 Computer</h1><h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>A school bought the first computer some time ago(so this computer’s id is 1). During the recent years the school bought N-1 new computers. Each new computer was connected to one of settled earlier. Managers of school are anxious about slow functioning of the net and want to know the maximum distance Si for which i-th computer needs to send signal (i.e. length of cable to the most distant computer). You need to provide this information.<br><img src="http://acm.hdu.edu.cn/data/images/C128-1005-1.JPG" alt="img"></p>
+<p><strong>Hint:</strong> the example input is corresponding to this graph. And from the graph, you can see that the computer 4 is farthest one from 1, so S1 = 3. Computer 4 and 5 are the farthest ones from 2, so S2 = 2. Computer 5 is the farthest one from 3, so S3 = 3. we also get S4 = 4, S5 = 4.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>Input file contains multiple test cases.In each case there is natural number N (N&lt;=10000) in the first line, followed by (N-1) lines with descriptions of computers. i-th line contains two natural numbers - number of computer, to which i-th computer is connected and length of cable used for connection. Total length of cable does not exceed 10^9. Numbers in lines of input are separated by a space.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each case output N lines. i-th line must contain number Si for i-th computer (1&lt;=i&lt;=N).</p>
+<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">1 1</span><br><span class="line">2 1</span><br><span class="line">3 1</span><br><span class="line">1 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<h2 id="Solution-1：树的直径"><a href="#Solution-1：树的直径" class="headerlink" title="Solution 1：树的直径"></a>Solution 1：树的直径</h2><p>找到树直径的两个端点A，B。求每个节点到A，B的距离。结果为max(disA, disB)。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db1(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db2(x, y) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span> &lt;&lt; #y &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; y &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> paging cout &lt;&lt; <span class="meta-string">"------------------"</span> &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">vector</span>&lt;pii&gt; adj[N];</span><br><span class="line"><span class="keyword">int</span> d[N];</span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="keyword">int</span> pos;</span><br><span class="line"><span class="keyword">int</span> dis[N][<span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> p, <span class="keyword">int</span> cnt)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len &lt; cnt) &#123;</span><br><span class="line">        len = cnt;</span><br><span class="line">        pos = u;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (pii node : adj[u]) <span class="keyword">if</span>(node.first != p) &#123;</span><br><span class="line">        <span class="keyword">int</span> v = node.first;</span><br><span class="line">        <span class="keyword">int</span> c = node.second;</span><br><span class="line">        dfs(v, u, cnt + c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> p, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (pii node : adj[u]) <span class="keyword">if</span>(node.first != p) &#123;</span><br><span class="line">        <span class="keyword">int</span> v = node.first;</span><br><span class="line">        <span class="keyword">int</span> c = node.second;</span><br><span class="line">        dis[v][id] = dis[u][id] + c;</span><br><span class="line">        dfs1(v, u, id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sol</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n)) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) adj[i].<span class="built_in">clear</span>(), d[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">            <span class="keyword">int</span> v, c; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;v, &amp;c);</span><br><span class="line">            adj[i].push_back(&#123;v, c&#125;);</span><br><span class="line">            adj[v].push_back(&#123;i, c&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">0</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        len = pos = <span class="number">0</span>;</span><br><span class="line">        dfs(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        dfs1(pos, pos, <span class="number">0</span>);</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">        dfs(pos, pos, <span class="number">0</span>);</span><br><span class="line">        dfs1(pos, pos, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="built_in">max</span>(dis[i][<span class="number">0</span>], dis[i][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    int _; scanf("%d", &amp;_); while(_ --)</span></span><br><span class="line">    sol();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Solution-2：树形dp"><a href="#Solution-2：树形dp" class="headerlink" title="Solution 2：树形dp"></a>Solution 2：树形dp</h2><p>d[i, 0]：i往下走的最大距离</p>
+<p>d[i, 1]：i往下走的次大距离</p>
+<p>d[i, 2]：i往上走的最大距离</p>
+<p>d[i, 0]和d[i, 1]可以同过一个dfs直接求出。</p>
+<p>d[i, 2]分两种情况。假设现在求d[j, 2]。i是j的父节点。</p>
+<p>若d[i, 0]的路径经过j。那么d[j, 2] = cost[i, j] + max(d[j, 2], d[j, 1] )。</p>
+<p>若不经过，d[j, 2] = cost[i, j] + max(d[j, 2], d[j, 0] )。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db1(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db2(x, y) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span> &lt;&lt; #y &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; y &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> paging cout &lt;&lt; <span class="meta-string">"------------------"</span> &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">vector</span>&lt;pii&gt; adj[N];</span><br><span class="line"><span class="keyword">int</span> d[N][<span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span> go[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> u = <span class="number">1</span>, <span class="keyword">int</span> p = <span class="number">1</span>)</span> </span>&#123; <span class="comment">// get d[][0] and d[][1]</span></span><br><span class="line">    <span class="keyword">for</span> (pii node : adj[u]) <span class="keyword">if</span>(node.first != p) &#123;</span><br><span class="line">        <span class="keyword">int</span> v = node.first, c = node.second;</span><br><span class="line">        dfs1(v, u);</span><br><span class="line">        <span class="keyword">int</span> val = d[v][<span class="number">0</span>] + c;</span><br><span class="line">        <span class="keyword">if</span>(val &gt;= d[u][<span class="number">0</span>]) &#123;</span><br><span class="line">            go[u] = v;</span><br><span class="line">            d[u][<span class="number">1</span>] = d[u][<span class="number">0</span>];</span><br><span class="line">            d[u][<span class="number">0</span>] = val;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(val &gt; d[u][<span class="number">1</span>]) d[u][<span class="number">1</span>] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> u = <span class="number">1</span>, <span class="keyword">int</span> p = <span class="number">1</span>)</span> </span>&#123; <span class="comment">// get d[][2]</span></span><br><span class="line">    <span class="keyword">for</span> (pii node : adj[u]) <span class="keyword">if</span>(node.first != p) &#123;</span><br><span class="line">        <span class="keyword">int</span> v = node.first, c = node.second;</span><br><span class="line">        <span class="keyword">if</span>(go[u] == v) d[v][<span class="number">2</span>] = <span class="built_in">max</span>(d[u][<span class="number">2</span>], d[u][<span class="number">1</span>]) + c;</span><br><span class="line">        <span class="keyword">else</span> d[v][<span class="number">2</span>] = <span class="built_in">max</span>(d[u][<span class="number">2</span>], d[u][<span class="number">0</span>]) + c;</span><br><span class="line">        dfs2(v, u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sol</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n)) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) adj[i].<span class="built_in">clear</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> v,c; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;v, &amp;c);</span><br><span class="line">            adj[i].push_back(&#123;v, c&#125;);</span><br><span class="line">            adj[v].push_back(&#123;i, c&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">memset</span>(go, <span class="number">0</span>, <span class="keyword">sizeof</span>(go));</span><br><span class="line">        dfs1();</span><br><span class="line">        dfs2();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="built_in">max</span>(d[i][<span class="number">0</span>], d[i][<span class="number">2</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sol();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+<h1 id="poj-1463-Strategic-game"><a href="#poj-1463-Strategic-game" class="headerlink" title="poj 1463 Strategic game"></a>poj 1463 Strategic game</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Bob enjoys playing computer games, especially strategic games, but sometimes he cannot find the solution fast enough and then he is very sad. Now he has the following problem. He must defend a medieval city, the roads of which form a tree. He has to put the minimum number of soldiers on the nodes so that they can observe all the edges. Can you help him?</p>
+<p>Your program should find the minimum number of soldiers that Bob has to put for a given tree.</p>
+<p>For example for the tree:<br><img src="http://poj.org/images/1463_1.jpg" alt="img"><br>the solution is one soldier ( at the node 1).</p>
+<h2 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h2><p>The input contains several data sets in text format. Each data set represents a tree with the following description:</p>
+<ul>
+<li>the number of nodes</li>
+<li>the description of each node in the following format<br>node_identifier:(number_of_roads) node_identifier1 node_identifier2 … node_identifiernumber_of_roads<br>or<br>node_identifier:(0)</li>
+</ul>
+<p>The node identifiers are integer numbers between 0 and n-1, for n nodes (0 &lt; n &lt;= 1500);the number_of_roads in each line of input will no more than 10. Every edge appears only once in the input data.</p>
+<h2 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h2><p>The output should be printed on the standard output. For each given input data set, print one integer number in a single line that gives the result (the minimum number of soldiers). An example is given in the following:</p>
+<h2 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input"></a>Sample Input</h2><blockquote>
+<p><strong>4</strong><br><strong>0:(1) 1</strong><br><strong>1:(2) 2 3</strong><br><strong>2:(0)</strong><br><strong>3:(0)</strong><br><strong>5</strong><br><strong>3:(3) 1 4 2</strong><br><strong>1:(1) 0</strong><br><strong>2:(0)</strong><br><strong>0:(0)</strong><br><strong>4:(0)</strong></p>
+</blockquote>
+<h2 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output"></a>Sample Output</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<h2 id="Solution-树形dp"><a href="#Solution-树形dp" class="headerlink" title="Solution: 树形dp"></a>Solution: 树形dp</h2><p>从下往上递推。每个节点有两个转态。</p>
+<p>d[i, 0]：以i为根节点，在i节点不放人的情况，所需的最小人数。= sum(d[son, 1])</p>
+<p>d[i, 1]：以i为根节点，在i节点放人的情况，所需的最小人数。 = 1 + sum (min(d[son, 0], d[son, 1] ) )</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &lt;bits/stdc++.h&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db1(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db2(x, y) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span> &lt;&lt; #y &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; y &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> paging cout &lt;&lt; <span class="meta-string">"------------------"</span> &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[N];</span><br><span class="line"><span class="keyword">int</span> d[N][<span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u = <span class="number">1</span>, <span class="keyword">int</span> p = <span class="number">1</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum0, sum1;</span><br><span class="line">    sum0 = <span class="number">0</span>; sum1 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; adj[u].<span class="built_in">size</span>(); ++ i) <span class="keyword">if</span>(adj[u][i] != p) &#123;</span><br><span class="line">        <span class="keyword">int</span> v = adj[u][i];</span><br><span class="line">        dfs(v, u);</span><br><span class="line">        sum0 += d[v][<span class="number">1</span>];</span><br><span class="line">        sum1 += <span class="built_in">min</span>(d[v][<span class="number">0</span>], d[v][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    d[u][<span class="number">1</span>] = sum1;</span><br><span class="line">    d[u][<span class="number">0</span>] = sum0;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sol</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n)) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) adj[i].<span class="built_in">clear</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">            <span class="keyword">int</span> u, len; <span class="built_in">scanf</span>(<span class="string">"%d:(%d)"</span>, &amp;u, &amp;len);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j =<span class="number">0</span> ; j &lt;len; ++j) &#123;</span><br><span class="line">                <span class="keyword">int</span> v; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;v);</span><br><span class="line">                adj[u].push_back(v);</span><br><span class="line">                adj[v].push_back(u);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="built_in">min</span>(d[<span class="number">1</span>][<span class="number">0</span>], d[<span class="number">1</span>][<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sol();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="P3574-POI2014-FAR-FarmCraft"><a href="#P3574-POI2014-FAR-FarmCraft" class="headerlink" title="P3574 [POI2014]FAR-FarmCraft"></a>P3574 [POI2014]FAR-FarmCraft</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>In a village called Byteville, there are <strong>n</strong> houses connected with <strong>n-1</strong> roads.</p>
+<p>For each pair of houses, there is a unique way to get from one to another.</p>
+<p>The houses are numbered from <strong>1 to n</strong>.</p>
+<p>The house no. 1 belongs to the village administrator Byteasar.</p>
+<p>As part of enabling modern technologies for rural areas framework, <strong>n</strong> computers have been delivered to Byteasar’s house.</p>
+<p>Every house is to be supplied with a computer, and it is Byteasar’s task to distribute them.</p>
+<p>The citizens of Byteville have already agreed to play the most recent version of FarmCraft (the game) as soon as they have their computers.</p>
+<p>Byteasar has loaded all the computers on his pickup truck and is about to set out to deliver the goods.</p>
+<p>He has just the right amount of gasoline to drive each road twice.</p>
+<p>In each house, Byteasar leaves one computer, and immediately continues on his route.</p>
+<p>In each house, as soon as house dwellers get their computer, they turn it on and install FarmCraft.</p>
+<p>The time it takes to install and set up the game very much depends on one’s tech savviness, which is fortunately known for each household.</p>
+<p>After he delivers all the computers, Byteasar will come back to his house and install the game on his computer.</p>
+<p>The travel time along each road linking two houses is exactly 1 minute, and (due to citizens’ eagerness to play) the time to unload a computer is negligible.</p>
+<p>Help Byteasar in determining a delivery order that allows all Byteville’s citizens (including Byteasar) to start playing together as soon as possible.</p>
+<p>In other words, find an order that minimizes the time when everyone has FarmCraft installed.</p>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>The first line of the standard input contains a single integer <strong>n</strong>(2 &lt;= <em>n</em> &lt;= 500 000) that gives the number of houses in Byteville.</p>
+<p>The second line contains <strong>n</strong> integers <em>c<sub>1</sub></em>, <em>c<sub>2</sub></em> …… <em>c<sub>n</sub></em>, (1 &lt;= <em>c<sub>i</sub></em> &lt;= 10<sup>9</sup>),separated by single spaces; <em>c<sub>i</sub></em> is the installation time (in minutes) for the dwellers of house no. i.</p>
+<p>The next <strong>n-1</strong> lines specify the roads linking the houses.</p>
+<p>Each such line contains two positive integers <strong>a</strong> and <strong>b</strong> (1&lt;= a &lt; b &lt;= n), separated by a single space.These indicate that there is a direct road between the houses no. <strong>a</strong> and <strong>b</strong>.</p>
+<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>The first and only line of the standard output should contain a single integer:</p>
+<p>the (minimum) number of minutes after which all citizens will be able to play FarmCraft together.</p>
+<h2 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">1 8 9 6 3 2</span><br><span class="line">1 3</span><br><span class="line">2 3</span><br><span class="line">3 4</span><br><span class="line">4 5</span><br><span class="line">4 6</span><br></pre></td></tr></table></figure>
+
+<h2 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11</span><br></pre></td></tr></table></figure>
+
+<h2 id="Solution：树形dp-贪心"><a href="#Solution：树形dp-贪心" class="headerlink" title="Solution：树形dp+贪心"></a>Solution：树形dp+贪心</h2><p>从root开始遍历，最后在回来。遍历耗时不变。但每个节点安装好游戏的时间不一样。=ti+ci。总耗时就是max(ti+ci)</p>
+<p>现在我们将问题简化一些。保留根节点<strong>u</strong>。将根节点下的子树，看成一个节点。对于ti和ci，我们可以这样看。假设遍历该节点需要的时间<strong>sz</strong>，一个该节点装好游戏的耗时<strong>d</strong>。则<strong>ti=sz+孩子节点的遍历次序</strong>，<strong>d=c</strong>。那么根据贪心的思想，我们会对等待时间最长（d-sz）的节点优先遍历。然后便是树形dp，由子节点推出父节点。</p>
+<p>很明显</p>
+<p>d[u] = max(d[u], d[son ] + 1 + T )，1表示u到该节点的耗时，T表示u到其他子节点又回来的耗时</p>
+<p><strong>若sz[i]表示遍历i相应的子树需要多少时间，d[i]表示i相应的子树全部都装好游戏的时间。</strong></p>
+<p><strong>dp的状态转移：</strong></p>
+<p><strong>d[u] = max(d[u], d[son] + 1 + sz[u]);</strong><br><strong>sz[u] += sz[son[i]] + 2; 2表示u-&gt;son-&gt;u</strong></p>
+<p><strong>注意：1节点，只会在最后回来后才安装游戏。故d[1]初始化为0，其他节点初始化为c[i]。表示第一次来到就安装游戏。最终答案输出max(d[1], sz[1]+c[1])。此时d[1]表示1的所有子节点都安装好游戏的最小耗时，并且已经回到了1。sz[1]+c[1]表示1安装游戏的耗时。两者取最大便是答案</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db1(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db2(x, y) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span> &lt;&lt; #y &lt;&lt; <span class="meta-string">" = "</span> &lt;&lt; y &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> paging cout &lt;&lt; <span class="meta-string">"------------------"</span> &lt;&lt; endl</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) x.begin(), x.end()</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">ll c[N];</span><br><span class="line">ll d[N], sz[N];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[N];</span><br><span class="line"><span class="keyword">int</span> son[N];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> d[a] - sz[a] &gt; d[b] - sz[b];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u = <span class="number">1</span>, <span class="keyword">int</span> p = <span class="number">0</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(u != <span class="number">1</span>) d[u] = c[u];</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> v : adj[u]) <span class="keyword">if</span>(v != p) dfs(v, u);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> v : adj[u]) <span class="keyword">if</span>(v != p) son[cnt++] = v;</span><br><span class="line">    sort(son, son + cnt, cmp); <span class="comment">// 只能在dfs之后sort。若在前面则会打乱son里的值。</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; ++ i) &#123;</span><br><span class="line">        d[u] = <span class="built_in">max</span>(d[u], d[son[i]] + <span class="number">1</span> + sz[u]);</span><br><span class="line">        sz[u] += sz[son[i]] + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sol</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;c[i]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">        <span class="keyword">int</span> u, v; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v);</span><br><span class="line">        adj[u].pb(v);</span><br><span class="line">        adj[v].pb(u);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, <span class="built_in">max</span>(d[<span class="number">1</span>], sz[<span class="number">1</span>] + c[<span class="number">1</span>]));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    int _; scanf("%d", &amp;_); while(_ --)</span></span><br><span class="line">    sol();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>辉忆年
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://huiyinian.github.io/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/" title="树形dp习题">https://huiyinian.github.io/2020/10/24/树形dp习题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag"># 树形dp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/" rel="prev" title="Java素数测试">
+      <i class="fa fa-chevron-left"></i> Java素数测试
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hdu-2196-Computer"><span class="nav-text">hdu 2196 Computer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Description"><span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input"><span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input"><span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output"><span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1：树的直径"><span class="nav-text">Solution 1：树的直径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2：树形dp"><span class="nav-text">Solution 2：树形dp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#poj-1463-Strategic-game"><span class="nav-text">poj 1463 Strategic game</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-1"><span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-1"><span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-1"><span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-1"><span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-树形dp"><span class="nav-text">Solution: 树形dp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#P3574-POI2014-FAR-FarmCraft"><span class="nav-text">P3574 [POI2014]FAR-FarmCraft</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入格式"><span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出格式"><span class="nav-text">输出格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入样例"><span class="nav-text">输入样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出样例"><span class="nav-text">输出样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution：树形dp-贪心"><span class="nav-text">Solution：树形dp+贪心</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="辉忆年"
+      src="/avatars/2020-7-13.jpg">
+  <p class="site-author-name" itemprop="name">辉忆年</p>
+  <div class="site-description" itemprop="description">辉忆年的个人博客（正在完善中）</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/huiyinian" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;huiyinian" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_44379458" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_44379458" rel="noopener" target="_blank"><i class="iconfont icon-csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">辉忆年</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '4AIgJQdTEBFdPiuDtug9A5LV-gzGzoHsz',
+      appKey     : 'Ptlg62XmMOFFj4p6p0fHhn80',
+      placeholder: "",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":200,"height":450},"mobile":{"show":true},"log":false});</script></body>
+</html>
