@@ -20,17 +20,16 @@
     var CONFIG = {"hostname":"huiyinian.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="实验一1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入&#x2F;输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I&#x2F;O或者是外部设备I&#x2F;O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="zigbee实验习题">
 <meta property="og:url" content="https://huiyinian.github.io/2020/10/26/zigbee%E5%AE%9E%E9%AA%8C%E4%B9%A0%E9%A2%98/index.html">
 <meta property="og:site_name" content="辉忆年">
-<meta property="og:description" content="实验一1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入&#x2F;输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I&#x2F;O或者是外部设备I&#x2F;O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://huiyinian.github.io/images/zigbee1.png">
 <meta property="article:published_time" content="2020-10-26T00:44:47.783Z">
-<meta property="article:modified_time" content="2020-10-26T00:51:11.834Z">
+<meta property="article:modified_time" content="2020-10-26T00:53:29.889Z">
 <meta property="article:author" content="辉忆年">
+<meta property="article:tag" content="tmp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://huiyinian.github.io/images/zigbee1.png">
 
@@ -198,7 +197,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-26 08:44:47 / 修改时间：08:51:11" itemprop="dateCreated datePublished" datetime="2020-10-26T08:44:47+08:00">2020-10-26</time>
+              <time title="创建时间：2020-10-26 08:44:47 / 修改时间：08:53:29" itemprop="dateCreated datePublished" datetime="2020-10-26T08:44:47+08:00">2020-10-26</time>
             </span>
 
           
@@ -226,7 +225,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h1><h2 id="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"><a href="#1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。" class="headerlink" title="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"></a>1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。</h2><p>通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入/输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I/O或者是外部设备I/O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出，0为输入，1为输出；PXINP：用作输入时，设置为上拉、下拉或三态操作模式，0为上下拉，1为三态，P2INP的5、6、7位分别用来设置端口0、1、2的上下拉，0为上拉，1为下拉；</p>
+        <hr>
+
+<a id="more"></a>
+
+<h1 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h1><h2 id="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"><a href="#1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。" class="headerlink" title="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"></a>1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。</h2><p>通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入/输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I/O或者是外部设备I/O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出，0为输入，1为输出；PXINP：用作输入时，设置为上拉、下拉或三态操作模式，0为上下拉，1为三态，P2INP的5、6、7位分别用来设置端口0、1、2的上下拉，0为上拉，1为下拉；</p>
 <p>中断使能寄存器IENX：IEN0寄存器的第七位控制CC2530所有中断的使能，其他位控制定时器、串口、RF等外设功能中断，IEN1的第五位控制P0口的中断，IEN2的第四位和第一位分别控制P1端口和P2端口的中断；中断使能寄存器PXIEN：用来设置端口的某一个引脚的中断使能，0表示中断禁止，1表示中断使能；中断状态标志寄存器PXIFG：判断哪个引脚发生中断，0表示未发生，1表示发生；中断控制寄存器PICTL：配置中断触发方式，第0位到第3位分别表示端口0、端口1.0-4、端口1.4-7、端口2 ，0表示输入的上升沿引起中断，1表示输入的下降沿引起中断。</p>
 <h2 id="2、实验1中，“CC2530-的-I-O-口（P1-0-和-P1-1）模拟-IIC-总线”你是如何理解的？IIC-总线是什么？怎么使用？为什么说是“模拟”IIC-总线？"><a href="#2、实验1中，“CC2530-的-I-O-口（P1-0-和-P1-1）模拟-IIC-总线”你是如何理解的？IIC-总线是什么？怎么使用？为什么说是“模拟”IIC-总线？" class="headerlink" title="2、实验1中，“CC2530 的 I/O 口（P1.0 和 P1.1）模拟 IIC 总线”你是如何理解的？IIC 总线是什么？怎么使用？为什么说是“模拟”IIC 总线？"></a>2、实验1中，“CC2530 的 I/O 口（P1.0 和 P1.1）模拟 IIC 总线”你是如何理解的？IIC 总线是什么？怎么使用？为什么说是“模拟”IIC 总线？</h2><p>模拟I2C就是用两个IO口按I2C协议进行通信。IIC总线需要两根线，一个是提供数据的SDA线一个是提供时序（控制）的SCL线，因为CC2530中并没有I2C外设。所以需要P1.0和P1.1完成这种功能；IIC总线是一种简单、双向、二线制、同步串行总线；根据应用需求与对应的时序图相结合来进行使用‘’</p>
 <h2 id="3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？"><a href="#3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？" class="headerlink" title="3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？"></a>3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？</h2><p>PCA9554的使用使得原本需要控制LED灯亮灭的串口减少，节省了串口资源；它与CC2530通过IIC总线进行通信，将数据写到PCA9554的输出寄存器中，便可实现对PCA9554的IO口的控制（前提是配置状态寄存器为输出模式）</p>
@@ -271,6 +274,9 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tmp/" rel="tag"># tmp</a>
+          </div>
 
         
 
@@ -370,7 +376,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
