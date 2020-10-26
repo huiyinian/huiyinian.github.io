@@ -20,30 +20,34 @@
     var CONFIG = {"hostname":"huiyinian.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="辉忆年的个人博客（正在完善中）">
-<meta property="og:type" content="website">
-<meta property="og:title" content="辉忆年">
-<meta property="og:url" content="https://huiyinian.github.io/index.html">
+  <meta name="description" content="实验一1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入&#x2F;输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I&#x2F;O或者是外部设备I&#x2F;O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zigbee实验习题">
+<meta property="og:url" content="https://huiyinian.github.io/2020/10/26/zigbee%E5%AE%9E%E9%AA%8C%E4%B9%A0%E9%A2%98/index.html">
 <meta property="og:site_name" content="辉忆年">
-<meta property="og:description" content="辉忆年的个人博客（正在完善中）">
+<meta property="og:description" content="实验一1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入&#x2F;输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I&#x2F;O或者是外部设备I&#x2F;O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://huiyinian.github.io/images/zigbee1.png">
+<meta property="article:published_time" content="2020-10-26T00:44:47.783Z">
+<meta property="article:modified_time" content="2020-10-26T00:51:11.834Z">
 <meta property="article:author" content="辉忆年">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huiyinian.github.io/images/zigbee1.png">
 
-<link rel="canonical" href="https://huiyinian.github.io/">
+<link rel="canonical" href="https://huiyinian.github.io/2020/10/26/zigbee%E5%AE%9E%E9%AA%8C%E4%B9%A0%E9%A2%98/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>辉忆年</title>
+  <title>zigbee实验习题 | 辉忆年</title>
   
 
 
@@ -163,9 +167,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -181,10 +186,9 @@
       <meta itemprop="name" content="辉忆年">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/26/zigbee%E5%AE%9E%E9%AA%8C%E4%B9%A0%E9%A2%98/" class="post-title-link" itemprop="url">zigbee实验习题</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          zigbee实验习题
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -222,7 +226,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h1><h2 id="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"><a href="#1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。" class="headerlink" title="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"></a>1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。</h2><p>通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入/输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I/O或者是外部设备I/O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出，0为输入，1为输出；PXINP：用作输入时，设置为上拉、下拉或三态操作模式，0为上下拉，1为三态，P2INP的5、6、7位分别用来设置端口0、1、2的上下拉，0为上拉，1为下拉；</p>
+        <h1 id="实验一"><a href="#实验一" class="headerlink" title="实验一"></a>实验一</h1><h2 id="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"><a href="#1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。" class="headerlink" title="1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"></a>1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。</h2><p>通过独立编程能作为数字输入或数字输出，还可以通过软件设置改变引脚的输入/输出硬件状态配置和硬件功能配置，使用前需要通过不同的特殊功能寄存器对它进行配置；配置寄存器PXSEL:设置端口的每个引脚为通用I/O或者是外部设备I/O，0为通用，1为外设；PXDIR：设置每个端口引脚的输入和输出，0为输入，1为输出；PXINP：用作输入时，设置为上拉、下拉或三态操作模式，0为上下拉，1为三态，P2INP的5、6、7位分别用来设置端口0、1、2的上下拉，0为上拉，1为下拉；</p>
 <p>中断使能寄存器IENX：IEN0寄存器的第七位控制CC2530所有中断的使能，其他位控制定时器、串口、RF等外设功能中断，IEN1的第五位控制P0口的中断，IEN2的第四位和第一位分别控制P1端口和P2端口的中断；中断使能寄存器PXIEN：用来设置端口的某一个引脚的中断使能，0表示中断禁止，1表示中断使能；中断状态标志寄存器PXIFG：判断哪个引脚发生中断，0表示未发生，1表示发生；中断控制寄存器PICTL：配置中断触发方式，第0位到第3位分别表示端口0、端口1.0-4、端口1.4-7、端口2 ，0表示输入的上升沿引起中断，1表示输入的下降沿引起中断。</p>
 <h2 id="2、实验1中，“CC2530-的-I-O-口（P1-0-和-P1-1）模拟-IIC-总线”你是如何理解的？IIC-总线是什么？怎么使用？为什么说是“模拟”IIC-总线？"><a href="#2、实验1中，“CC2530-的-I-O-口（P1-0-和-P1-1）模拟-IIC-总线”你是如何理解的？IIC-总线是什么？怎么使用？为什么说是“模拟”IIC-总线？" class="headerlink" title="2、实验1中，“CC2530 的 I/O 口（P1.0 和 P1.1）模拟 IIC 总线”你是如何理解的？IIC 总线是什么？怎么使用？为什么说是“模拟”IIC 总线？"></a>2、实验1中，“CC2530 的 I/O 口（P1.0 和 P1.1）模拟 IIC 总线”你是如何理解的？IIC 总线是什么？怎么使用？为什么说是“模拟”IIC 总线？</h2><p>模拟I2C就是用两个IO口按I2C协议进行通信。IIC总线需要两根线，一个是提供数据的SDA线一个是提供时序（控制）的SCL线，因为CC2530中并没有I2C外设。所以需要P1.0和P1.1完成这种功能；IIC总线是一种简单、双向、二线制、同步串行总线；根据应用需求与对应的时序图相结合来进行使用‘’</p>
 <h2 id="3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？"><a href="#3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？" class="headerlink" title="3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？"></a>3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？</h2><p>PCA9554的使用使得原本需要控制LED灯亮灭的串口减少，节省了串口资源；它与CC2530通过IIC总线进行通信，将数据写到PCA9554的输出寄存器中，便可实现对PCA9554的IO口的控制（前提是配置状态寄存器为输出模式）</p>
@@ -243,595 +247,54 @@
 <p>修改信道号可以避免这种干扰。</p>
 <h2 id="8、实验4中，CC2530-RF初始化都做了哪些工作？试通过程序分析进行讨论。"><a href="#8、实验4中，CC2530-RF初始化都做了哪些工作？试通过程序分析进行讨论。" class="headerlink" title="8、实验4中，CC2530 RF初始化都做了哪些工作？试通过程序分析进行讨论。"></a>8、实验4中，CC2530 RF初始化都做了哪些工作？试通过程序分析进行讨论。</h2><p><img src="https://huiyinian.github.io/images/zigbee1.png" alt></p>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/" class="post-title-link" itemprop="url">树形dp习题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-24 21:55:21 / 修改时间：22:40:24" itemprop="dateCreated datePublished" datetime="2020-10-24T21:55:21+08:00">2020-10-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/" itemprop="url" rel="index"><span itemprop="name">acm</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>辉忆年
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://huiyinian.github.io/2020/10/26/zigbee%E5%AE%9E%E9%AA%8C%E4%B9%A0%E9%A2%98/" title="zigbee实验习题">https://huiyinian.github.io/2020/10/26/zigbee实验习题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">Java素数测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-16 15:23:18" itemprop="dateCreated datePublished" datetime="2020-10-16T15:23:18+08:00">2020-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-24 22:14:37" itemprop="dateModified" datetime="2020-10-24T22:14:37+08:00">2020-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/" itemprop="url" rel="index"><span itemprop="name">acm</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="BigInteger中的素数测试方法"><a href="#BigInteger中的素数测试方法" class="headerlink" title="BigInteger中的素数测试方法"></a>BigInteger中的素数测试方法</h1><p><strong>MillerRabin素数测试，时间复杂度O(klog<sup>3</sup>n)，k为测试次数，n是测试的数字</strong></p>
-<hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/16/Java%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/08/25/spring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/25/spring/" class="post-title-link" itemprop="url">Spring框架学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-25 22:36:51" itemprop="dateCreated datePublished" datetime="2020-08-25T22:36:51+08:00">2020-08-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-24 21:53:19" itemprop="dateModified" datetime="2020-10-24T21:53:19+08:00">2020-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">框架学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/08/25/spring/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/25/spring/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Spring框架学习"><a href="#Spring框架学习" class="headerlink" title="Spring框架学习"></a>Spring框架学习</h1><p><a href="https://www.bilibili.com/video/BV1Vf4y127N5" target="_blank" rel="noopener">学习视频链接</a></p>
-<blockquote>
-<p>spring version:5.2.6</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/25/spring/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/24/%E6%A0%91%E5%BD%A2dp%E4%B9%A0%E9%A2%98/" rel="prev" title="树形dp习题">
+      <i class="fa fa-chevron-left"></i> 树形dp习题
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/08/05/%E6%95%B0%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/05/%E6%95%B0%E8%AE%BA/" class="post-title-link" itemprop="url">数论专题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 11:59:10" itemprop="dateCreated datePublished" datetime="2020-08-05T11:59:10+08:00">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-25 22:23:22" itemprop="dateModified" datetime="2020-08-25T22:23:22+08:00">2020-08-25</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/08/05/%E6%95%B0%E8%AE%BA/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/05/%E6%95%B0%E8%AE%BA/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>前言：学长这几天要帮亲戚报志愿，今天刚开始挑学校（别问为啥，我也很无奈，反正麻烦的一批）。这几天就得弄好。所以呢，题目是没有拉完的，之后每天我会更新那么两三道。别问我为啥之前没准备，科三今天刚过，还有其他乱七八糟的就不说了。</p>
-</blockquote>
-<p>首先呢，数学是个大杂烩，简单的是真简单，难的，那我也不会。一步一步地来吧！</p>
-<p>汇总：<a href="https://oi-wiki.org/math/" target="_blank" rel="noopener">https://oi-wiki.org/math/</a></p>
-<p>常用（对应上方链接目录）：</p>
-<ol>
-<li>快速幂，cpp高精度计算（Java大数选手可忽略）</li>
-<li>数论（中国剩余定理之前都要看）</li>
-<li>剩下的。。。<strong>暂时量力而行</strong></li>
-</ol>
-<hr>
-<p>博客：</p>
-<p><a href="https://www.cnblogs.com/linyujun/" target="_blank" rel="noopener">https://www.cnblogs.com/linyujun/</a> （<strong><em>量力而行，慢慢来</em></strong>）</p>
-<p>视频：</p>
-<p><a href="https://www.bilibili.com/video/BV17W411V7nY?from=search&amp;seid=11883581745685404240" target="_blank" rel="noopener">https://www.bilibili.com/video/BV17W411V7nY?from=search&amp;seid=11883581745685404240</a> （素数筛法，快速幂（请自行跳过），逆元，拓展欧几里得）</p>
-<p>拓展欧几里得：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">方程ax+by&#x3D;g，其中g&#x3D;gcd(a, b)</span><br><span class="line">特解:x0，y0；</span><br><span class="line">通解:x&#x3D;x0+b&#x2F;g*n, y&#x3D;y0–a&#x2F;g*n; n为整数</span><br><span class="line"></span><br><span class="line">方程ax+by&#x3D;z；令g &#x3D; gcd(a,b)；</span><br><span class="line">若g|z（g能整除z），方程有解，否则无解；</span><br><span class="line">令 k&#x3D;z&#x2F;g</span><br><span class="line">特解:x’&#x3D;x0*k, y’&#x3D;y0*k (x0, y0为ax+by&#x3D;g的特解)</span><br><span class="line">通解:x&#x3D;x’+b&#x2F;g*n, y&#x3D;y’–a&#x2F;g*n; n为整数</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<p>先就这些，有问题直接问，群里问，这里问都行。</p>
-<p>还有我这个网站还没有被百度和google收录，记好网址。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/07/23/hexo%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/23/hexo%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">hexo建站日志</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 22:07:54" itemprop="dateCreated datePublished" datetime="2020-07-23T22:07:54+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-26 23:39:59" itemprop="dateModified" datetime="2020-07-26T23:39:59+08:00">2020-07-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/23/hexo%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/23/hexo%E5%BB%BA%E7%AB%99%E6%97%A5%E5%BF%97/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="next主题优化"><a href="#next主题优化" class="headerlink" title="next主题优化"></a>next主题优化</h1><h2 id="开启文章下方版权声明"><a href="#开启文章下方版权声明" class="headerlink" title="开启文章下方版权声明"></a>开启文章下方版权声明</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">creative_commons:</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">by-nc-sa</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span> <span class="comment"># 个人侧边栏下方的版权声明</span></span><br><span class="line">  <span class="attr">post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">language:</span> <span class="string">zh-CN</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="添加valine评论"><a href="#添加valine评论" class="headerlink" title="添加valine评论"></a>添加valine评论</h2><ol>
-<li><p>注册一个LeanCloud账号（valine评论系统在LeanCloud上面放着）。LeanCloud官网：<a href="https://www.leancloud.cn/" target="_blank" rel="noopener">https://www.leancloud.cn/</a></p>
-</li>
-<li><p>在LeanCloud上面创建一个应用。创建完之后。去设置里面找到<strong>AppID</strong>与<strong>AppKey</strong>。</p>
-<p><img src="https://huiyinian.github.io/images/LeanCloudsettings.png" alt></p>
-</li>
-<li><p>打开next的配置文件，搜索valine，填入上方的<strong>AppID</strong>与<strong>AppKey</strong>。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">appid:</span>  <span class="comment"># Your leancloud application appid</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="comment"># Your leancloud application appkey</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2020/07/14/demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/avatars/2020-7-13.jpg">
-      <meta itemprop="name" content="辉忆年">
-      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辉忆年">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/14/demo/" class="post-title-link" itemprop="url">demo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-14 22:25:04" itemprop="dateCreated datePublished" datetime="2020-07-14T22:25:04+08:00">2020-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-26 23:39:30" itemprop="dateModified" datetime="2020-07-26T23:39:30+08:00">2020-07-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/14/demo/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/14/demo/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font size="5" color="red"><strong>小白博主，正在努力完善中!!!</strong></font></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"test"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="title1111111111111111111111111111111111111"><a href="#title1111111111111111111111111111111111111" class="headerlink" title="title1111111111111111111111111111111111111"></a>title1111111111111111111111111111111111111</h1><h2 id="title1-1"><a href="#title1-1" class="headerlink" title="title1-1"></a>title1-1</h2><h1 id="title2"><a href="#title2" class="headerlink" title="title2"></a>title2</h1><p>这是一个图片</p>
-<p><img src="https://huiyinian.github.io/images/6d0d13d9a10902c7ca1637a14688f78.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -878,6 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验一"><span class="nav-text">实验一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。"><span class="nav-text">1、CC2530的GPIO口如何设置才可以正确使用？需要设置哪些寄存器？如何设置？试分析实验1中，如下语句。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、实验1中，“CC2530-的-I-O-口（P1-0-和-P1-1）模拟-IIC-总线”你是如何理解的？IIC-总线是什么？怎么使用？为什么说是“模拟”IIC-总线？"><span class="nav-text">2、实验1中，“CC2530 的 I&#x2F;O 口（P1.0 和 P1.1）模拟 IIC 总线”你是如何理解的？IIC 总线是什么？怎么使用？为什么说是“模拟”IIC 总线？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？"><span class="nav-text">3、实验1中，通过程序段分析PCA9554起到什么样的作用？如何使用它控制LED灯的亮和灭？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、实验1中，“六个灯轮流闪烁”程序中延时函数其何作用？能否去除？"><span class="nav-text">4、实验1中，“六个灯轮流闪烁”程序中延时函数其何作用？能否去除？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验二"><span class="nav-text">实验二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5、实验2中，按键触发中断控制LED灯的亮和灭的操作，试讨论分析一下，如果去掉IIC总线和PCA9554芯片，硬件和软件程序该如何设计？"><span class="nav-text">5、实验2中，按键触发中断控制LED灯的亮和灭的操作，试讨论分析一下，如果去掉IIC总线和PCA9554芯片，硬件和软件程序该如何设计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、实验2中，按键触发中断可控制LED灯的亮和灭的操作，如果想修改为“程序查询方式”而非中断方式，同样实现按键控制LED灯的亮和灭操作，是否可行？为什么？二者有什么区别？"><span class="nav-text">6、实验2中，按键触发中断可控制LED灯的亮和灭的操作，如果想修改为“程序查询方式”而非中断方式，同样实现按键控制LED灯的亮和灭操作，是否可行？为什么？二者有什么区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、实验2中，什么叫“外部中断”的触发？如果想要设置CC2530能被某IO口正常被中断触发，该满足哪些条件？"><span class="nav-text">7、实验2中，什么叫“外部中断”的触发？如果想要设置CC2530能被某IO口正常被中断触发，该满足哪些条件？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、实验2中，中断标志位、中断使能位、中断屏蔽位、中断开关、中断向量几个概念有何区别与联系？"><span class="nav-text">8、实验2中，中断标志位、中断使能位、中断屏蔽位、中断开关、中断向量几个概念有何区别与联系？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验三"><span class="nav-text">实验三</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、实验3中，在设计开发中，对温湿度采集与光照采集的方法有何异同？为何需要这样去做？试通过电路图结合程序进行讨论。"><span class="nav-text">1、实验3中，在设计开发中，对温湿度采集与光照采集的方法有何异同？为何需要这样去做？试通过电路图结合程序进行讨论。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、实验3中，试通过程序分析，举例解释代码中“将温度结果转换为字符串”的具体方法？该方法是否可以在今后进行物联网应用系统开发中使用？"><span class="nav-text">2、实验3中，试通过程序分析，举例解释代码中“将温度结果转换为字符串”的具体方法？该方法是否可以在今后进行物联网应用系统开发中使用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、实验3中，温湿度、光照强度的单位分别是什么？单位的常用简写符号分别是什么？"><span class="nav-text">3、实验3中，温湿度、光照强度的单位分别是什么？单位的常用简写符号分别是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、实验3中，温湿度、光照模块分别使用的是什么型号的模块？与CC2530是如何的电路连接？为何需要这样连接？试通过电路图结合程序进行讨论。"><span class="nav-text">4、实验3中，温湿度、光照模块分别使用的是什么型号的模块？与CC2530是如何的电路连接？为何需要这样连接？试通过电路图结合程序进行讨论。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验四"><span class="nav-text">实验四</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5、实验4中，该实验结果如何？并试解释说明程序执行的大体流程，即从程序主入口函数开始，指出程序执行的重要跳转，如函数跳转或者中断等。"><span class="nav-text">5、实验4中，该实验结果如何？并试解释说明程序执行的大体流程，即从程序主入口函数开始，指出程序执行的重要跳转，如函数跳转或者中断等。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、实验4中，灯与开关节点之间发送的数据是什么？几个字节？试结合程序进行讨论。能否修改为发送数据是“宫保鸡丁”，并在接收节点的LCD屏上正确显示出来？试分析讨论一下设计思路和程序大致流程。"><span class="nav-text">6、实验4中，灯与开关节点之间发送的数据是什么？几个字节？试结合程序进行讨论。能否修改为发送数据是“宫保鸡丁”，并在接收节点的LCD屏上正确显示出来？试分析讨论一下设计思路和程序大致流程。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、实验4中，分别设置了两个节点为发送与接收节点，并设置了节点的短地址和网络的PANID号，分别有什么作用？如果多组同学同时做这个实验，为了避免相互之间数据乱传，应该怎么修改PANID？如果修改信道号可以避免这种干扰吗？"><span class="nav-text">7、实验4中，分别设置了两个节点为发送与接收节点，并设置了节点的短地址和网络的PANID号，分别有什么作用？如果多组同学同时做这个实验，为了避免相互之间数据乱传，应该怎么修改PANID？如果修改信道号可以避免这种干扰吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、实验4中，CC2530-RF初始化都做了哪些工作？试通过程序分析进行讨论。"><span class="nav-text">8、实验4中，CC2530 RF初始化都做了哪些工作？试通过程序分析进行讨论。</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
