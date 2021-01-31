@@ -249,7 +249,7 @@
 <a id="more"></a>
 
 <h2 id="boolean-primeToCertainty-int-certainty-Random-random-（关键方法，不可调用）"><a href="#boolean-primeToCertainty-int-certainty-Random-random-（关键方法，不可调用）" class="headerlink" title="boolean primeToCertainty(int certainty, Random random) （关键方法，不可调用）"></a>boolean primeToCertainty(int certainty, Random random) （关键方法，不可调用）</h2><p><strong>MillerRabin素数测试的测试次数为<code>(certainty+1)/2</code></strong></p>
-<p><strong>测试数字的长度 &lt; 100：</strong></p>
+<p><strong>测试数字的长度 &lt; 100：</strong></p>
 <p>使用<code>MillerRabin素数测试</code>，测试次数最大为50。</p>
 <p><strong>测试数字的长度 &gt;= 100：</strong></p>
 <p>使用<code>MillerRabin</code>+<code>LucasLehmer</code>共同测试</p>
@@ -279,7 +279,7 @@
 <h1 id="测试isProbablePrime"><a href="#测试isProbablePrime" class="headerlink" title="测试isProbablePrime"></a>测试isProbablePrime</h1><p><strong>hdu 2138 MillerRabin模板题</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.math.BigInteger;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Scanner scan = <span class="keyword">new</span> Scanner(<span class="keyword">new</span> BufferedInputStream(System.in));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(scan.hasNext()) &#123;</span><br><span class="line">            <span class="keyword">int</span> n = scan.nextInt();</span><br><span class="line">            <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++ i) &#123;</span><br><span class="line">                <span class="keyword">int</span> x = scan.nextInt();</span><br><span class="line">                <span class="keyword">if</span>(BigInteger.valueOf(x).isProbablePrime(<span class="number">15</span>)) ++ ans;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://huiyinian.github.io/images/hdu2138.png" alt></p>
+<p><img src="https://huiyinian.github.io/images/hdu2138.png"></p>
 
     </div>
 
@@ -398,7 +398,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -411,7 +411,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -446,7 +446,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
