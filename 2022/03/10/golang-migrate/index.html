@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"huiyinian.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;golang-migrate&#x2F;migrate 参考文章：https:&#x2F;&#x2F;blog.csdn.net&#x2F;doyzfly&#x2F;article&#x2F;details&#x2F;121096806">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang-migrate初次使用">
+<meta property="og:url" content="https://huiyinian.github.io/2022/03/10/golang-migrate/index.html">
+<meta property="og:site_name" content="辉忆年">
+<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;golang-migrate&#x2F;migrate 参考文章：https:&#x2F;&#x2F;blog.csdn.net&#x2F;doyzfly&#x2F;article&#x2F;details&#x2F;121096806">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-10T08:56:51.832Z">
+<meta property="article:modified_time" content="2022-03-10T09:07:55.955Z">
+<meta property="article:author" content="辉忆年">
+<meta property="article:tag" content="migrate">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://huiyinian.github.io/2022/03/10/golang-migrate/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>golang-migrate初次使用 | 辉忆年</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">辉忆年</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huiyinian.github.io/2022/03/10/golang-migrate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/1.jpg">
+      <meta itemprop="name" content="辉忆年">
+      <meta itemprop="description" content="辉忆年的个人博客（正在完善中）">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="辉忆年">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          golang-migrate初次使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-10 16:56:51 / 修改时间：17:07:55" itemprop="dateCreated datePublished" datetime="2022-03-10T16:56:51+08:00">2022-03-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/10/golang-migrate/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/10/golang-migrate/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>项目地址：<a href="https://github.com/golang-migrate/migrate" target="_blank" rel="noopener">https://github.com/golang-migrate/migrate</a></li>
+<li>参考文章：<a href="https://blog.csdn.net/doyzfly/article/details/121096806" target="_blank" rel="noopener">https://blog.csdn.net/doyzfly/article/details/121096806</a></li>
+</ul>
+<hr>
+
+<a id="more"></a>
+
+<h1 id="1-Install-migrate-CLI"><a href="#1-Install-migrate-CLI" class="headerlink" title="1 Install migrate CLI"></a>1 Install migrate CLI</h1><p>直接 <a href="https://github.com/golang-migrate/migrate/releases" target="_blank" rel="noopener">Release Downloads</a> 下载对应版本。也可以安装官网说明下载。</p>
+<ul>
+<li>Windows：下载压缩包，解压后，将 <code>migrate.exe</code> 放入 <code>$GOPATH/bin</code> 目录下</li>
+</ul>
+<h1 id="2-postgres测试（docker有点问题）"><a href="#2-postgres测试（docker有点问题）" class="headerlink" title="2 postgres测试（docker有点问题）"></a>2 <del>postgres测试</del>（docker有点问题）</h1><blockquote>
+<p> 测试环境</p>
+</blockquote>
+<ul>
+<li>windows 10</li>
+<li>windows 10 下的 postgres：14.2</li>
+<li>虚拟机：vagrant + virbox + ubuntu-xenial</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux ubuntu-xenial 4.4.0-210-generic #242-Ubuntu SMP Fri Apr 16 09:57:56 UTC 2021 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker：20.10.7</li>
+</ul>
+<h2 id="2-1-拉取-postgres-镜像"><a href="#2-1-拉取-postgres-镜像" class="headerlink" title="2.1 拉取 postgres 镜像"></a>2.1 拉取 postgres 镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull postgres:14-alpine</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-启动-docker-windows-上的-postgres-数据库"><a href="#2-2-启动-docker-windows-上的-postgres-数据库" class="headerlink" title="2.2 启动 docker / windows 上的 postgres 数据库"></a>2.2 启动 docker / windows 上的 postgres 数据库</h2><p>连接名：<code>postgres</code> ，密码：<code>password</code>，虚拟机地址：<code>192.168.33.10</code></p>
+<p>启动镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name postgres -e POSTGRES_PASSWORD&#x3D;password -d postgres:14-alpine</span><br></pre></td></tr></table></figure>
+
+<p>进入 postgres 容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it postgres psql -U postgres</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库 example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database example;</span><br></pre></td></tr></table></figure>
+
+<p><code>\list</code> 查看所有数据库</p>
+<ul>
+<li><strong>windows 略</strong></li>
+</ul>
+<h2 id="2-3-创建某次数据库变更的-sql-文件"><a href="#2-3-创建某次数据库变更的-sql-文件" class="headerlink" title="2.3 创建某次数据库变更的 sql 文件"></a>2.3 创建某次数据库变更的 sql 文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir migrations #首次执行，用于存放变更的 sql 文件</span><br></pre></td></tr></table></figure>
+
+<p>比如说这次修改我们需要新增一个 users 的表，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate create -ext sql -dir .&#x2F;migrations -seq create_users_table</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会在 <code>migrations</code> 目录下生成两个文件 </p>
+<ul>
+<li><code>000001_create_users_table.up.sql</code> 和 <code>000001_create_users_table.down.sql</code> , <code>000001</code> 是某次修改的版本号.</li>
+<li><code>000001_create_users_table.up.sql</code> 用来存放创建 <code>users</code> 表的 <code>sql</code> 脚本，</li>
+<li><code>000001_create_users_table.down.sql</code> 用来存放回滚这次操作的 <code>sql</code> 脚本。</li>
+<li><code>migrate create</code> 命令只负责创建文件，<code>sql</code> 文件的内容需要我们手动编辑。</li>
+</ul>
+<p>编辑 <code>000001_create_users_table.up.sql</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="keyword">users</span>(</span><br><span class="line">   user_id <span class="built_in">serial</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">   username <span class="built_in">VARCHAR</span> (<span class="number">50</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   <span class="keyword">password</span> <span class="built_in">VARCHAR</span> (<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   email <span class="built_in">VARCHAR</span> (<span class="number">300</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>编辑 <code>000001_create_users_table.down.sql</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">users</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-up-与-down"><a href="#2-4-up-与-down" class="headerlink" title="2.4 up 与 down"></a>2.4 up 与 down</h2><ul>
+<li>migrate 的 up 子命令用来应用某一次数据库变更， down 子命令用来回滚数据库变更操作。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">up [N]       Apply all or N up migrations</span><br><span class="line">  down [N] [-all]    Apply all or N down migrations</span><br><span class="line">        Use -all to apply all down migrations</span><br></pre></td></tr></table></figure>
+
+<p>首次执行 migrate up 命令后，会在数据库中添加 schema_migrations 表。这个表有两个字段 version 和 dirty。</p>
+<p>version 用来表示当前数据库对应 ./migrations 下面的那个版本，比如第一次执行 migrate up 1 后，如果执行成功了， schema_migrations 表中的 version=1，说明当前数据库对应的是 000001_create_users_table.up.sql 这个版本 </p>
+<p>dirty=false，执行到 version=1 这次的变更没有出错。如果 dirty=true ，变更出错，需手动处理。</p>
+<ul>
+<li><p>up 和 down 后面的 [N] 是数量。<code>migrate create -ext sql</code> 命令创建 sql 文件，并给其标号。up 的执行顺序是从小到大，down 是从大到小。up 和 down 执行文件的起始标号根据schema_migrations 里面的 version 确定。若schema_migrations 为空表或不存在，则可认为 version 为 0 。up 的起始标号为 version + 1。 down 为 version</p>
+<p>eg：3 个 up.sql 和 3 个 down.sql。空数据库</p>
+<p>不加参数 N</p>
+<ul>
+<li>执行 up 命令，后面不加参数，升序执行所有的 up.sql 文件。顺序 1，2，3</li>
+<li>执行 down 命令，后面不加参数，降序执行当前 version 的 down.sql，直到1xxx_down.sql执行完。顺序 3，2，1</li>
+</ul>
+<p>加参数 N</p>
+<ul>
+<li>执行 up 2 命令，执行两个 up.sql 文件。顺序 1，2</li>
+<li>执行 down 1 命令，执行一个 down.sql文件。顺序 2 </li>
+</ul>
+</li>
+<li><p>每次 up 和 down 操作都可能会影响 schema_migrations 表。若 dirty 为 true。则代表操作失败，需手动修改</p>
+</li>
+</ul>
+<p>变更 up：</p>
+<p><del><strong>docker</strong></del></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@192.168.33.10:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations up 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>本地测试</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@localhost:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations up 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x2F;u create_users_table (23.7245ms)</span><br></pre></td></tr></table></figure>
+
+<p><strong>数据库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">example&#x3D;# \d</span><br><span class="line">                     关联列表</span><br><span class="line"> 架构模式 |       名称        |  类型  |  拥有者</span><br><span class="line">----------+-------------------+--------+----------</span><br><span class="line"> public   | schema_migrations | 数据表 | postgres</span><br><span class="line"> public   | users             | 数据表 | postgres</span><br><span class="line"> public   | users_user_id_seq | 序列数 | postgres</span><br><span class="line">(3 行记录)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">example&#x3D;# \d users</span><br><span class="line">                                      数据表 &quot;public.users&quot;</span><br><span class="line">   栏位   |          类型          | 校对规则 |  可空的  |                  预设</span><br><span class="line">----------+------------------------+----------+----------+----------------------------------------</span><br><span class="line"> user_id  | integer                |          | not null | nextval(&#39;users_user_id_seq&#39;::regclass)</span><br><span class="line"> username | character varying(50)  |          | not null |</span><br><span class="line"> password | character varying(50)  |          | not null |</span><br><span class="line"> email    | character varying(300) |          | not null |</span><br><span class="line">索引：</span><br><span class="line">    &quot;users_pkey&quot; PRIMARY KEY, btree (user_id)</span><br><span class="line">    &quot;users_email_key&quot; UNIQUE CONSTRAINT, btree (email)</span><br><span class="line">    &quot;users_username_key&quot; UNIQUE CONSTRAINT, btree (username)</span><br></pre></td></tr></table></figure>
+
+<p>回滚 down：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@localhost:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations down 1</span><br></pre></td></tr></table></figure>
+
+<p>migrations down 后，数据库恢复到应用 create_users 之前的状态，users 表被删除，schema_migrations 表记录被删除</p>
+<h2 id="2-5-应用多次修改"><a href="#2-5-应用多次修改" class="headerlink" title="2.5 应用多次修改"></a>2.5 应用多次修改</h2><p>1、第二次修改使用事务为 users 表添加 COLUMN</p>
+<p><code>migrate create -ext sql -dir ./migrations -seq add_mood_to_users</code> , migrations 目录下会增加 <code>000002_add_mood_to_users.up.sql</code> 和 <code>000002_add_mood_to_users.down.sql</code> 两个文件。</p>
+<p><code>000002_add_mood_to_users.up.sql</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TYPE</span> enum_mood <span class="keyword">AS</span> ENUM (</span><br><span class="line">	<span class="string">'happy'</span>,</span><br><span class="line">	<span class="string">'sad'</span>,</span><br><span class="line">	<span class="string">'neutral'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> mood enum_mood;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>000002_add_mood_to_users.down.sql</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> mood;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TYPE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> enum_mood;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2、第三次修改为 users 表增加 role_id 这个 COLUMN</p>
+<p><code>migrate create -ext sql -dir ./migrations -seq add_roleid_to_users</code> , migrations 目录下会增加 <code>000003_add_roleid_to_users.up.sql</code> 和 <code>000003_add_roleid_to_users.down.sql</code> 两个文件。</p>
+<p><code>000003_add_roleid_to_users.up.sql</code> </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> role_id <span class="built_in">INTEGER</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>000003_add_roleid_to_users.down.sql</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> role_id;</span><br></pre></td></tr></table></figure>
+
+<p>3、</p>
+<ul>
+<li>migrate up 执行 migrations 目录下所有的 up.sql 脚本。顺序：从 1-&gt;3 依次执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@localhost:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations up</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1&#x2F;u create_users_table (24.4893ms)</span><br><span class="line">2&#x2F;u add_mood_to_users (35.9127ms)</span><br><span class="line">3&#x2F;u add_roleid_to_users (45.9152ms)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>migrate down 执行 migrations 目录下所有的 up.sql 脚本。顺序：从 3-&gt;1 依次执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@localhost:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations down</span><br><span class="line">Are you sure you want to apply all down migrations? [y&#x2F;N]</span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Applying all down migrations</span><br><span class="line">3&#x2F;d add_roleid_to_users (18.3408ms)</span><br><span class="line">2&#x2F;d add_mood_to_users (31.8805ms)</span><br><span class="line">1&#x2F;d create_users_table (47.9373ms)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>migrate up 2。执行 1-2</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@localhost:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations up 2</span><br></pre></td></tr></table></figure>
+
+<p>返回结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1&#x2F;u create_users_table (17.9567ms)</span><br><span class="line">2&#x2F;u add_mood_to_users (28.0026ms)</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/migrate/" rel="tag"># migrate</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/04/go%E6%B7%BB%E5%8A%A0swag/" rel="prev" title="go添加swag">
+      <i class="fa fa-chevron-left"></i> go添加swag
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Install-migrate-CLI"><span class="nav-number">1.</span> <span class="nav-text">1 Install migrate CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-postgres测试（docker有点问题）"><span class="nav-number">2.</span> <span class="nav-text">2 postgres测试（docker有点问题）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-拉取-postgres-镜像"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 拉取 postgres 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-启动-docker-windows-上的-postgres-数据库"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动 docker &#x2F; windows 上的 postgres 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-创建某次数据库变更的-sql-文件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 创建某次数据库变更的 sql 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-up-与-down"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 up 与 down</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-应用多次修改"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 应用多次修改</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="辉忆年"
+      src="/avatar/1.jpg">
+  <p class="site-author-name" itemprop="name">辉忆年</p>
+  <div class="site-description" itemprop="description">辉忆年的个人博客（正在完善中）</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/huiyinian" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;huiyinian" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=2352126435@qq.com" title="E-Mail → https:&#x2F;&#x2F;mail.qq.com&#x2F;cgi-bin&#x2F;qm_share?t&#x3D;qm_mailme&amp;email&#x3D;2352126435@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_44379458" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_44379458" rel="noopener" target="_blank"><i class=" fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">辉忆年</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '4AIgJQdTEBFdPiuDtug9A5LV-gzGzoHsz',
+      appKey     : 'Ptlg62XmMOFFj4p6p0fHhn80',
+      placeholder: "",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":200,"height":450},"mobile":{"show":true},"log":false});</script></body>
+</html>
