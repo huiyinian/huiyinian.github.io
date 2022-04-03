@@ -28,7 +28,7 @@
 <meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;golang-migrate&#x2F;migrate 参考文章：https:&#x2F;&#x2F;blog.csdn.net&#x2F;doyzfly&#x2F;article&#x2F;details&#x2F;121096806">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-10T08:56:51.832Z">
-<meta property="article:modified_time" content="2022-03-10T09:07:55.955Z">
+<meta property="article:modified_time" content="2022-04-03T15:17:34.153Z">
 <meta property="article:author" content="辉忆年">
 <meta property="article:tag" content="migrate">
 <meta name="twitter:card" content="summary">
@@ -193,10 +193,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-10 16:56:51 / 修改时间：17:07:55" itemprop="dateCreated datePublished" datetime="2022-03-10T16:56:51+08:00">2022-03-10</time>
+              <time title="创建时间：2022-03-10 16:56:51" itemprop="dateCreated datePublished" datetime="2022-03-10T16:56:51+08:00">2022-03-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-03 23:17:34" itemprop="dateModified" datetime="2022-04-03T23:17:34+08:00">2022-04-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -244,15 +250,15 @@
 <ul>
 <li>Windows：下载压缩包，解压后，将 <code>migrate.exe</code> 放入 <code>$GOPATH/bin</code> 目录下</li>
 </ul>
-<h1 id="2-postgres测试（docker有点问题）"><a href="#2-postgres测试（docker有点问题）" class="headerlink" title="2 postgres测试（docker有点问题）"></a>2 <del>postgres测试</del>（docker有点问题）</h1><blockquote>
+<h1 id="2-postgres测试"><a href="#2-postgres测试" class="headerlink" title="2 postgres测试"></a>2 postgres测试</h1><blockquote>
 <p> 测试环境</p>
 </blockquote>
 <ul>
 <li>windows 10</li>
 <li>windows 10 下的 postgres：14.2</li>
-<li>虚拟机：vagrant + virbox + ubuntu-xenial</li>
+<li>虚拟机：vagrant + virbox + centos</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux ubuntu-xenial 4.4.0-210-generic #242-Ubuntu SMP Fri Apr 16 09:57:56 UTC 2021 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux localhost.localdomain 3.10.0-1127.el7.x86_64 #1 SMP Tue Mar 31 23:36:51 UTC 2020 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>docker：20.10.7</li>
@@ -261,7 +267,7 @@
 
 <h2 id="2-2-启动-docker-windows-上的-postgres-数据库"><a href="#2-2-启动-docker-windows-上的-postgres-数据库" class="headerlink" title="2.2 启动 docker / windows 上的 postgres 数据库"></a>2.2 启动 docker / windows 上的 postgres 数据库</h2><p>连接名：<code>postgres</code> ，密码：<code>password</code>，虚拟机地址：<code>192.168.33.10</code></p>
 <p>启动镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name postgres -e POSTGRES_PASSWORD&#x3D;password -d postgres:14-alpine</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name postgres -e POSTGRES_PASSWORD&#x3D;password -p5432:5432 -d postgres:14-alpine</span><br></pre></td></tr></table></figure>
 
 <p>进入 postgres 容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it postgres psql -U postgres</span><br></pre></td></tr></table></figure>
@@ -317,7 +323,7 @@
 </li>
 </ul>
 <p>变更 up：</p>
-<p><del><strong>docker</strong></del></p>
+<p><strong>docker</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database postgres:&#x2F;&#x2F;postgres:password@192.168.33.10:5432&#x2F;example?sslmode&#x3D;disable -path .&#x2F;migrations up 1</span><br></pre></td></tr></table></figure>
 
 <p><strong>本地测试</strong></p>
@@ -455,7 +461,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Install-migrate-CLI"><span class="nav-number">1.</span> <span class="nav-text">1 Install migrate CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-postgres测试（docker有点问题）"><span class="nav-number">2.</span> <span class="nav-text">2 postgres测试（docker有点问题）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-拉取-postgres-镜像"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 拉取 postgres 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-启动-docker-windows-上的-postgres-数据库"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动 docker &#x2F; windows 上的 postgres 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-创建某次数据库变更的-sql-文件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 创建某次数据库变更的 sql 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-up-与-down"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 up 与 down</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-应用多次修改"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 应用多次修改</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Install-migrate-CLI"><span class="nav-number">1.</span> <span class="nav-text">1 Install migrate CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-postgres测试"><span class="nav-number">2.</span> <span class="nav-text">2 postgres测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-拉取-postgres-镜像"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 拉取 postgres 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-启动-docker-windows-上的-postgres-数据库"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 启动 docker &#x2F; windows 上的 postgres 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-创建某次数据库变更的-sql-文件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 创建某次数据库变更的 sql 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-up-与-down"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 up 与 down</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-应用多次修改"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 应用多次修改</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
